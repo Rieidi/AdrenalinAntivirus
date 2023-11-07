@@ -15,4 +15,4 @@ Está e uma versão onde você pode alterar o codigo. (A comercialização e pro
 
 Como Executar(EXE):
 
-Apenas execute o .exe como administrador. (Execute o .bat para fazer a instalação do exe.)
+Apenas execute o .exe como administrador. (Use o link para fazer a instalação do exe.)
