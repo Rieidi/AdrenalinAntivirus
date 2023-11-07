@@ -12,8 +12,9 @@ Obrigado por testar este software em fase de desenvolvimento.
 Como Executar(Py):
 
 Está e uma versão onde você pode alterar o codigo. (A comercialização e proibida esse programa e gratuito)
+--Lembre-se instale todos os modúlos para funcionar corretamente.
 
 Como Executar(EXE):
 
 Apenas execute o .exe como administrador. (Use o link para fazer a instalação do exe.)
-https://www.mediafire.com/file/pdnn4448gk96eg0/AdrenalinAntivirus.exe/file
+--https://www.mediafire.com/file/pdnn4448gk96eg0/AdrenalinAntivirus.exe/file
