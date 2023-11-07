@@ -9,6 +9,6 @@ Por favor, use este programa com cuidado e apenas em ambientes de teste.
 Se encontrar problemas ou tiver sugestões, entre em contato com o desenvolvedor para ajudar na melhoria deste antivírus.
 Obrigado por testar este software em fase de desenvolvimento.
 
-Como Abrir:
+Como Executar:
 
 Apenas execute o .exe como administrador.
