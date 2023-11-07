@@ -19,4 +19,6 @@ Como Executar(EXE):
 Apenas execute o .exe como administrador. (Use o link para fazer a instalação do exe.)
 --https://www.mediafire.com/file/pdnn4448gk96eg0/AdrenalinAntivirus.exe/file
 
-GNU General Public License v3.0
+MIT License
+
+Copyright (c) 2023 UserNotfoundR
