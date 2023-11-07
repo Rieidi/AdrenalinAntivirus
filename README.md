@@ -9,6 +9,10 @@ Por favor, use este programa com cuidado e apenas em ambientes de teste.
 Se encontrar problemas ou tiver sugestões, entre em contato com o desenvolvedor para ajudar na melhoria deste antivírus.
 Obrigado por testar este software em fase de desenvolvimento.
 
-Como Executar:
+Como Executar(Py):
 
-Apenas execute o .exe como administrador.
+Está e uma versão onde você pode alterar o codigo. (A comercialização e proibida esse programa e gratuito)
+
+Como Executar(EXE):
+
+Apenas execute o .exe como administrador. (Execute o .bat para fazer a instalação do exe.)
