@@ -17,7 +17,7 @@ Está e uma versão onde você pode alterar o codigo.
 Como Executar(EXE):
 
 Apenas execute o .exe como administrador. (Use o link para fazer a instalação do exe.)
---https://www.mediafire.com/file/pdnn4448gk96eg0/AdrenalinAntivirus.exe/file
+--https://www.mediafire.com/file/d0kd5gvl1lgbofw/AntivirusAdrenalin.exe/file
 
 MIT License
 
