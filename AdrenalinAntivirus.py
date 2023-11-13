@@ -193,7 +193,7 @@ class VirusScannerApp(QWidget):
                         hash_encontrado = any(hash_arquivo in doc.get("hashes", []) for doc in all_documents)
 
                         if hash_encontrado:
-                            print(f"Arquivo suspeito encontrado: {caminho}")
+                            self.result_output.append(f"Arquivo infectado encontrado, matando processo e deletando o arquivo.")
 
                             # Criar a variável do comando final para cada caminho individualmente
                             comando_final = f'wmic process where "commandline like \'%{caminho.replace("\\", "\\\\").replace("C:\\\\", "C:\\\\%")}%\'" call terminate'
@@ -207,7 +207,7 @@ class VirusScannerApp(QWidget):
                             os.remove(caminho)
 
                         else:
-                            print(f"Arquivo seguro: {caminho}")
+                            self.result_output.append(f"Arquivo seguro: {caminho}")
 
             # Obtenha a lista de processos
             for proc in psutil.process_iter(['pid', 'name', 'exe']):
@@ -228,6 +228,7 @@ class VirusScannerApp(QWidget):
                             print(f"Processo {proc_info['pid']} ({proc_info['name']}) com hash não correspondente: {process_hash}")
                         else:
                             # Aqui, você pode decidir se deseja terminar o processo ou tomar outra ação
+                            self.result_output.append(f"Arquivo infectado encontrado, matando processo e deletando o arquivo.")
                             p = psutil.Process(proc_info['pid'])
                             p.terminate()
                             os.remove(proc_info['exe'])  # Remover o arquivo .exe
