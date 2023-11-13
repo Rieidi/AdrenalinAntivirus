@@ -9,6 +9,8 @@ Por favor, use este programa com cuidado e apenas em ambientes de teste.
 Se encontrar problemas ou tiver sugestões, entre em contato com o desenvolvedor para ajudar na melhoria deste antivírus.
 Obrigado por testar este software em fase de desenvolvimento.
 
+Ops:Infelizmente não há como manter os hashes altualizados pois o mongoDB é muito lento para isso.
+
 Como Executar(Py):
 
 Está e uma versão onde você pode alterar o codigo. 
