@@ -1,5 +1,5 @@
 # AdrenalinAntivirus
-*** AVISO: ANTI-VÍRUS EM FASE DE TESTE ***
+*** AVISO: ANTI-VÍRUS EM FASE DE TESTE E DESCONTINUADO(DEVIDO A FALTA DE HASHES) ***
 
 Este programa antivírus está atualmente em fase de teste e desenvolvimento.
 Ele pode não oferecer proteção completa contra todas as ameaças e não é garantido que funcione perfeitamente. Utilize-o por sua própria conta e risco.
