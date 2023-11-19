@@ -102,7 +102,7 @@ class RealtimeCheckThread(QThread):
                             # Aqui, você pode decidir se deseja terminar o processo ou tomar outra ação
                             self.result_obtained.emit(f"Arquivo infectado encontrado, matando processo e deletando o arquivo.")
                             p = psutil.Process(proc_info['pid'])
-                            p.terminate()
+                            p.kill()  # Matar o processo principal e todos os seus processos filhos
                             os.remove(proc_info['exe'])
                             notification.notify(
                                 title="Arquivo Infectado",
