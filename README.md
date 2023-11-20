@@ -1,6 +1,4 @@
 # AdrenalinAntivirus
-*** AVISO: ANTI-VÍRUS EM FASE DE TESTE E DESCONTINUADO(DEVIDO A FALTA DE HASHES) ***
-
 Este programa antivírus está atualmente em fase de teste e desenvolvimento.
 Ele pode não oferecer proteção completa contra todas as ameaças e não é garantido que funcione perfeitamente. Utilize-o por sua própria conta e risco.
 Eu, como desenvolvedor, não me responsabilizo por qualquer dano causado ao seu sistema, arquivos ou dados.
@@ -9,7 +7,10 @@ Por favor, use este programa com cuidado e apenas em ambientes de teste.
 Se encontrar problemas ou tiver sugestões, entre em contato com o desenvolvedor para ajudar na melhoria deste antivírus.
 Obrigado por testar este software em fase de desenvolvimento.
 
-Ops:Infelizmente não há como manter os hashes altualizados pois o mongoDB é muito lento para isso.
+#Problemas:
+1.Não é possível altulizar o hashes pois sozinho e quase impossível manter e o mongoDB é Lento.
+2.Não oferece proteção a web.
+3.A GUI ainda não foi melhorada.
 
 Como Executar(Py):
 
