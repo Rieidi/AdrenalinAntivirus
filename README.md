@@ -20,11 +20,13 @@ Obrigado por testar este software em fase de desenvolvimento.
 # Como Executar(Py):
 
 Está e uma versão onde você pode alterar o codigo. 
+
 --Lembre-se instale todos os modúlos para funcionar corretamente.
 
 # Como Executar(EXE):
 
 Apenas execute o EXE como administrador. (Use o link para fazer a instalação do exe.)
+
 --https://www.mediafire.com/file/b1qq36km6uh6cvg/AdrenalinAntivirus.exe/file
 
 MIT License
