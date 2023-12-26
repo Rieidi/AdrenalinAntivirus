@@ -11,10 +11,9 @@ Se encontrar problemas ou tiver sugestões, entre em contato com o desenvolvedor
 Obrigado por testar este software em fase de desenvolvimento.
 
 # Problemas:
-
-1.Não é possível altulizar o hashes pois sozinho e quase impossível manter e o mongoDB é Lento.
-2.Não oferece proteção a web.
-3.A GUI ainda não foi melhorada.
+1.A atualização dos hashes torna-se desafiadora quando feita manualmente, e a eficiência é quase impossível de ser mantida. Além disso, a integração com o MongoDB apresenta lentidão.
+2.A aplicação não oferece proteção para atividades na web.
+3.A interface gráfica do usuário (GUI) ainda não foi melhorada.
 
 # Como Executar(Py):
 
