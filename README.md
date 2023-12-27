@@ -1,5 +1,11 @@
 # AdrenalinAntivirus
 
+# 🛡️Antivirus:
+
+Este é um antivírus robusto, o Antivírus Adrenalin, com um foco especial na detecção e remoção de ameaças em tempo real.
+Utilizando tecnologias avançadas, como a verificação de hash SHA-256 e a análise em segundo plano,
+o antivírus oferece uma defesa eficaz contra arquivos maliciosos, incluindo executáveis e scripts perigosos.
+
 # ⚠️Avisos:
 
 Este programa antivírus está atualmente em fase de teste e desenvolvimento.
