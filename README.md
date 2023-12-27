@@ -19,7 +19,7 @@ Obrigado por testar este software em fase de desenvolvimento.
 
 # 🔌Como Executar(Py):
 
-Está e uma versão onde você pode alterar o codigo. 
+Este é um arquivo onde você pode executar e alterar o código. 
 
 Lembre-se instale todos os modúlos para funcionar corretamente.
 
