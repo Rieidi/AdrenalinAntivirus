@@ -2,7 +2,7 @@
 
 # 🛡️Antivirus:
 
-Este é um antivírus robusto, o Antivírus Adrenalin, com um foco especial na detecção e remoção de ameaças em tempo real.
+Este é um antivírus robusto, o Antivírus tem um foco especial na detecção e remoção de ameaças em tempo real.
 Utilizando tecnologias avançadas, como a verificação de hash SHA-256 e a análise em segundo plano,
 o antivírus oferece uma defesa eficaz contra arquivos maliciosos, incluindo executáveis e scripts perigosos.
 
