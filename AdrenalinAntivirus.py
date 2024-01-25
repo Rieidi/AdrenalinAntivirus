@@ -6,9 +6,12 @@ from plyer import notification
 import time
 import hashlib
 import subprocess
+import signal
 import re
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QTextBrowser, QProgressBar
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal
+import ctypes
+import win32api
 
 # Função para calcular o hash SHA-256 de um arquivo
 def calcular_sha256(arquivo):
@@ -102,14 +105,101 @@ class RealtimeCheckThread(QThread):
                             # Aqui, você pode decidir se deseja terminar o processo ou tomar outra ação
                             self.result_obtained.emit(f"Arquivo infectado encontrado, matando processo e deletando o arquivo.")
                             p = psutil.Process(proc_info['pid'])
-                            p.kill()  # Matar o processo principal e todos os seus processos filhos
-                            os.remove(proc_info['exe'])
+                            nome_processo = proc_info['name']
+
+                            class ProcessoNaoEncontrado(Exception):
+                                pass
+
+                            class FalhaAoSuspender(Exception):
+                                pass
+
+                            class FalhaAoEncerrar(Exception):
+                                pass
+
+                            def listar_processos(nome_processo):
+                                processos_encontrados = []
+
+                                for proc in psutil.process_iter(['pid', 'name']):
+                                    try:
+                                        if nome_processo.lower() in proc.info['name'].lower():
+                                            processos_encontrados.append(psutil.Process(proc.info['pid']))
+                                    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                                        pass
+
+                                return processos_encontrados
+
+                            def suspender_encerrar_processos(nome_processo):
+                                try:
+
+                                    # Encontrar os processos com o nome fornecido
+                                    processos_encontrados = listar_processos(nome_processo)
+
+                                    if not processos_encontrados:
+                                        raise ProcessoNaoEncontrado(f"Nenhum processo com o nome '{nome_processo}' encontrado.")
+
+                                    # Encontrar e suspender todos os processos encontrados
+                                    for processo_encontrado in processos_encontrados:
+                                        try:
+                                            processo_encontrado.suspend()
+                                        except psutil.NoSuchProcess:
+                                            pass
+                                        except Exception as e:
+                                            raise FalhaAoSuspender(f"Falha ao suspender o processo (PID {processo_encontrado.pid}): {e}")
+
+                                    # Mostrar os PIDs e status dos processos suspensos
+                                    print("Processos suspensos:")
+                                    for processo_encontrado in processos_encontrados:
+                                        print(f"PID: {processo_encontrado.pid}, Nome: {processo_encontrado.name()}, Status: {processo_encontrado.status()}")
+
+                                    time.sleep(3)
+
+                                    # Encerrar todos os processos filhos dos processos encontrados
+                                    for processo_encontrado in processos_encontrados:
+                                        processos_filhos = processo_encontrado.children(recursive=True)
+                                        for processo_filho in processos_filhos:
+                                            try:
+                                                processo_filho.kill()
+                                            except psutil.NoSuchProcess:
+                                                pass
+                                            except Exception as e:
+                                                raise FalhaAoEncerrar(f"Falha ao encerrar o processo filho (PID {processo_filho.pid}): {e}")
+
+                                    # Encerrar os processos principais encontrados
+                                    for processo_encontrado in processos_encontrados:
+                                        try:
+                                            processo_encontrado.kill()
+                                        except psutil.NoSuchProcess:
+                                            pass
+                                        except Exception as e:
+                                            raise FalhaAoEncerrar(f"Falha ao encerrar o processo principal (PID {processo_encontrado.pid}): {e}")
+
+                                    print(f"Processos foram suspensos e encerrados com sucesso.")
+
+                                except ProcessoNaoEncontrado as e:
+                                    print(f"Erro: {e}")
+
+                                except FalhaAoSuspender as e:
+                                    print(f"Erro ao suspender processos: {e}")
+
+                                except FalhaAoEncerrar as e:
+                                    print(f"Erro ao encerrar processos: {e}")
+
+                                except Exception as e:
+                                    print(f"Ocorreu um erro inesperado: {e}")
+
+                            # Chamar a função com o nome do processo FORNECIDO PELO P
+                            suspender_encerrar_processos(nome_processo)
+                            
+                            # Remover o executável
+                            try:
+                                os.remove(proc_info['exe'])
+                            except Exception as e:
+                                print(f"Ocorreu um erro ao remover o arquivo: {e}")
                             notification.notify(
                                 title="Arquivo Infectado",
                                 message="Arquivo infectado encontrado, matando processo e deletando o arquivo.",
                                 app_name="AdrenalinAntivirus",
                             )
-                            
 
                 except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess, psutil.TimeoutExpired):
                     # Lidar com exceções específicas do psutil que podem ocorrer ao acessar informações do processo
@@ -309,4 +399,3 @@ if __name__ == "__main__":
     scanner_app = VirusScannerApp()
     scanner_app.show()
     sys.exit(app.exec_())
-
