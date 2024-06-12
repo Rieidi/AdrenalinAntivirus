@@ -11,6 +11,7 @@ Em questão a velocidade do programa eu não sei oque fazer.
 . A função hourly_check foi adicionada para atualizar os hashes a cada hora.
 
 
+# Licença:
 
 GNU GENERAL PUBLIC LICENSE v3.0
 
