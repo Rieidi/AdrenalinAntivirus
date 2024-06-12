@@ -10,38 +10,46 @@ import json
 from datetime import datetime, timedelta, timezone
 from plyer import notification
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, 
-                             QPushButton, QTextBrowser, QProgressBar)
-from PyQt5.QtCore import QTimer, QThread, pyqtSignal
+                             QPushButton, QTextBrowser, QProgressBar, QSystemTrayIcon, QMenu, QAction)
+from PyQt5.QtCore import QTimer, QThread, pyqtSignal, Qt
+from PyQt5.QtGui import QIcon
 
 # Função para calcular o hash SHA-256 de um arquivo
 def calcular_sha256(arquivo):
-    hasher = hashlib.sha256()
-    with open(arquivo, 'rb') as f:
-        while (chunk := f.read(8192)):
-            hasher.update(chunk)
-    return hasher.hexdigest()
+    try:
+        hasher = hashlib.sha256()
+        with open(arquivo, 'rb') as f:
+            while (chunk := f.read(8192)):
+                hasher.update(chunk)
+        return hasher.hexdigest()
+    except Exception as e:
+        print(f"Erro ao calcular o hash do arquivo {arquivo}: {e}")
+        return None
 
 # Função para atualizar os hashes de malware
 def atualizar_hashes_malware():
-    yesterday = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%d")
-    url = "https://mb-api.abuse.ch/api/v1/"
-    params = {
-        'query': 'get_recent',
-        'selector': 'time',
-        'time': yesterday
-    }
+    try:
+        yesterday = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%d")
+        url = "https://mb-api.abuse.ch/api/v1/"
+        params = {
+            'query': 'get_recent',
+            'selector': 'time',
+            'time': yesterday
+        }
 
-    response = requests.post(url, data=params)
-    if response.status_code == 200:
-        data = response.json()
-        if data['query_status'] == 'ok':
-            with open('malware_hashes.txt', 'w') as f:
-                for sample in data['data']:
-                    f.write(sample['sha256_hash'] + '\n')
+        response = requests.post(url, data=params)
+        if response.status_code == 200:
+            data = response.json()
+            if data['query_status'] == 'ok':
+                with open('malware_hashes.txt', 'w') as f:
+                    for sample in data['data']:
+                        f.write(sample['sha256_hash'] + '\n')
+            else:
+                print("Nenhum dado encontrado.")
         else:
-            print("Nenhum dado encontrado.")
-    else:
-        print("Erro ao obter os hashes SHA-256.")
+            print("Erro ao obter os hashes SHA-256.")
+    except Exception as e:
+        print(f"Erro ao atualizar os hashes de malware: {e}")
 
 class RealtimeCheckThread(QThread):
     result_obtained = pyqtSignal(str)
@@ -66,7 +74,6 @@ class RealtimeCheckThread(QThread):
             if processo.returncode != 0:
                 raise Exception(f"Erro ao executar o comando: {processo.stderr}")
 
-            caminhos_arquivos = []
             for linha in processo.stdout.splitlines():
                 if "CommandLine" in linha:
                     match = re.search(r'"([^"]*\\[^"]*\.(bat|vbs))"', linha)
@@ -193,6 +200,7 @@ class VirusScannerApp(QWidget):
 
         self.virus_hashes = set()
         self.init_ui()
+        self.init_system_tray()
 
         self.start_time = None
         self.system_info_timer = QTimer(self)
@@ -203,6 +211,10 @@ class VirusScannerApp(QWidget):
         self.realtime_thread = RealtimeCheckThread(self.virus_hashes)
         self.realtime_thread.result_obtained.connect(self.handle_realtime_result)
         self.realtime_thread.start()
+
+        self.hourly_timer = QTimer(self)
+        self.hourly_timer.timeout.connect(self.hourly_check)
+        self.hourly_timer.start(3600000)  # 1 hora em milissegundos
 
     def init_ui(self):
         layout = QVBoxLayout()
@@ -227,12 +239,45 @@ class VirusScannerApp(QWidget):
         self.scan_button.clicked.connect(self.scan_drive)
         self.system_info_button.clicked.connect(self.toggle_system_info)
 
+    def init_system_tray(self):
+        self.tray_icon = QSystemTrayIcon(self)
+        self.tray_icon.setIcon(QIcon("icone.ico"))
+        self.tray_icon.setToolTip("AdrenalinAntivirus")
+
+        tray_menu = QMenu()
+
+        restore_action = QAction("Restaurar", self)
+        restore_action.triggered.connect(self.showNormal)
+        tray_menu.addAction(restore_action)
+
+        exit_action = QAction("Sair", self)
+        exit_action.triggered.connect(self.exit_app)
+        tray_menu.addAction(exit_action)
+
+        self.tray_icon.setContextMenu(tray_menu)
+        self.tray_icon.show()
+
+    def closeEvent(self, event):
+        event.ignore()
+        self.hide()
+        self.tray_icon.showMessage(
+            "AdrenalinAntivirus",
+            "O AdrenalinAntivirus está sendo executado em segundo plano.",
+            QSystemTrayIcon.Information,
+            2000
+        )
+
+    def exit_app(self):
+        self.realtime_thread.terminate()
+        self.tray_icon.hide()
+        QApplication.quit()
+
     def carregar_hashes_malware(self):
         try:
             with open('malware_hashes.txt', 'r') as f:
                 self.virus_hashes = {line.strip() for line in f}
         except FileNotFoundError:
-                       self.result_output.append("Arquivo de hashes de malware não encontrado.")
+            self.result_output.append("Arquivo de hashes de malware não encontrado.")
 
     def update_progress(self, value):
         self.progress_bar.setValue(value)
@@ -299,6 +344,13 @@ class VirusScannerApp(QWidget):
     def handle_realtime_result(self, result):
         self.result_output.append(result)
 
+    def hourly_check(self):
+        try:
+            atualizar_hashes_malware()
+            self.carregar_hashes_malware()
+        except Exception as e:
+            self.result_output.append(f"Erro durante a verificação horária: {e}")
+
 class ScanThread(QThread):
     progress_updated = pyqtSignal(int)
     file_infected = pyqtSignal(str)
@@ -352,4 +404,3 @@ if __name__ == "__main__":
     scanner_app = VirusScannerApp()
     scanner_app.show()
     sys.exit(app.exec_())
-
