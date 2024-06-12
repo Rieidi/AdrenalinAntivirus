@@ -4,7 +4,7 @@ Em questão a velocidade do programa eu não sei oque fazer.
 
 # Updates:
 
-. Adicionada a funcionalidade do ícone da bandeja do sistema que permite restaurar ou sair do aplicativo. (Lembre-se, você deve ter o icone do antivirus no diretorio do .py ou .exe. Ele estara no repositorio.
+. Adicionada a funcionalidade do ícone da bandeja do sistema que permite restaurar ou sair do aplicativo. (Lembre-se, você deve ter o icone do antivirus no diretorio do .py ou .exe. Ele estara no repositorio.)
 
 . Foi implementado o comportamento para esconder a janela ao fechar, mantendo o aplicativo em execução.
 
