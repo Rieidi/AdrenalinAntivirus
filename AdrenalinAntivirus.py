@@ -1,3 +1,4 @@
+
 import sys
 import os
 import time
@@ -7,12 +8,18 @@ import re
 import psutil
 import requests
 import json
+import socket
+import threading
+import pygetwindow as gw
 from datetime import datetime, timedelta, timezone
 from plyer import notification
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, 
                              QPushButton, QTextBrowser, QProgressBar, QSystemTrayIcon, QMenu, QAction)
 from PyQt5.QtCore import QTimer, QThread, pyqtSignal, Qt
 from PyQt5.QtGui import QIcon
+
+# Porta e endereço para comunicação entre instâncias
+LOCK_SOCKET_ADDRESS = ('localhost', 65432)
 
 # Função para calcular o hash SHA-256 de um arquivo
 def calcular_sha256(arquivo):
@@ -396,11 +403,53 @@ class ScanThread(QThread):
 
         return False
 
-if __name__ == "__main__":
-    # Atualiza os hashes de malware antes de iniciar a aplicação
+def main():
+    # Tenta se conectar ao socket de comunicação
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        client_socket.connect(LOCK_SOCKET_ADDRESS)
+        print("Outra instância está em execução. Enviando sinal para a instância existente.")
+        client_socket.sendall(b"SHOW")
+        client_socket.close()
+        sys.exit(0)
+    except socket.error:
+        pass  # Nenhuma instância em execução, prosseguir
+
+    # Criar o socket de servidor para detectar novas instâncias
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket.bind(LOCK_SOCKET_ADDRESS)
+    server_socket.listen(1)
+
+    def handle_socket():
+        while True:
+            conn, _ = server_socket.accept()
+            data = conn.recv(1024)
+            if data == b"SHOW":
+                app = QApplication.instance()
+                if app:
+                    for widget in app.topLevelWidgets():
+                        if isinstance(widget, VirusScannerApp):
+                            widget.showNormal()
+                            widget.raise_()  # Garante que a janela está no topo
+                            widget.activateWindow()  # Dá foco à janela
+                            # Usando pygetwindow para trazer a janela para o primeiro plano
+                            window = gw.getWindowsWithTitle("AdrenalinAntivirus")[0]
+                            if window:
+                                window.activate()
+            conn.close()
+
+    socket_thread = threading.Thread(target=handle_socket, daemon=True)
+    socket_thread.start()
+
+    # Executar o aplicativo principal
     atualizar_hashes_malware()
 
     app = QApplication(sys.argv)
     scanner_app = VirusScannerApp()
     scanner_app.show()
+
     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
