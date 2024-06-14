@@ -10,6 +10,9 @@ Em questão a velocidade do programa eu não sei oque fazer.
 
 . A função hourly_check foi adicionada para atualizar os hashes a cada hora.
 
+# Proximos Updates:
+
+. Adicão de proteção web.
 
 # Licença:
 
