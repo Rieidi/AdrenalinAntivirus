@@ -1,20 +1,24 @@
-# AdrenalinAntivírus
-Isso é um antivirus escrito 100% em python tirando as bibliotecas usadas, e ele serve para alguma coisa já que foi implementado essa função de altulização de hashes diaria, **LEMBRE-SE** quando você for rodar pela primeira vez os hashes vão começar do **ZERO** então não ache que está 100% seguro, mas isso ainda será tratado depois e eu estou usando a API do **Malware-Basar** para implementar a função de altulização de hashes(Você deve ter o txt presente no repositorio no diretorio do .py).
-Em questão a velocidade do programa eu não sei oque fazer.
+Sure! Here's the translation:
+
+# AdrenalinAntivirus
+
+This is an antivirus written 100% in Python, excluding the libraries used. It serves a purpose since it has a daily hash update function implemented. **REMEMBER** that when you run it for the first time, the hashes will start from **ZERO**, so don't assume it is 100% secure right away. This will be addressed later. I am using the **Malware-Basar** API to implement the hash update function (You must have the txt file present in the repository in the directory of the .py file).
+
+Regarding the program's speed, I am not sure what to do.
 
 # Updates:
 
-. Adicionada a funcionalidade do ícone da bandeja do sistema que permite restaurar ou sair do aplicativo. (Lembre-se, você deve ter o icone do antivirus no diretorio do .py ou .exe. Ele estara no repositorio.)
+. Added the system tray icon functionality that allows restoring or exiting the application. (Remember, you must have the antivirus icon in the directory of the .py or .exe file. It will be in the repository.)
 
-. Foi implementado o comportamento para esconder a janela ao fechar, mantendo o aplicativo em execução.
+. Implemented the behavior to hide the window when closing, keeping the application running.
 
-. A função hourly_check foi adicionada para atualizar os hashes a cada hora.
+. Added the hourly_check function to update the hashes every hour.
 
-# Proximos Updates:
+# Next Updates:
 
-. Adicão de proteção web.
+. Addition of web protection.
 
-# Licença:
+# License:
 
 GNU GENERAL PUBLIC LICENSE v3.0
 
