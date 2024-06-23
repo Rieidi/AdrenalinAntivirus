@@ -22,4 +22,4 @@ Regarding the program's speed, I am not sure what to do.
 
 GNU GENERAL PUBLIC LICENSE v3.0
 
-Copyright (c) 2023 UserNotfoundR
+Copyright (c) 2024 UserNotfoundR
