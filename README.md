@@ -1,21 +1,51 @@
 # AdrenalinAntivirus
 
-This is an antivirus written 100% in Python, excluding the libraries used. It serves a purpose since it has a daily hash update function implemented. **REMEMBER** that when you run it for the first time, the hashes will start from **ZERO**, so don't assume it is 100% secure right away. This will be addressed later. I am using the **Malware-Basar** API to implement the hash update function (You must have the txt file present in the repository in the directory of the .py file).
+AdrenalinAntivirus is an antivirus developed entirely in Python. It features a daily hash update function using the Malware-Basar API.
 
-# Updates:
+## Features
 
-. Added the system tray icon functionality that allows restoring or exiting the application. (Remember, you must have the antivirus icon in the directory of the .py or .exe file. It will be in the repository.)
+- Daily hash updates
+- System tray icon to restore or exit the application
+- Window hidden when closed, keeping the application running
+- Hourly hash updates
 
-. Implemented the behavior to hide the window when closing, keeping the application running.
+## How to Use
 
-. Added the hourly_check function to update the hashes every hour.
+1. **Clone the repository:**
 
-# Next Updates:
+   ```bash
+   git clone https://github.com/YourUsername/AdrenalinAntivirus.git
+   ```
 
-. Botloader backup.
+2. **Navigate to the project directory:**
 
-. Addition of web protection.
+   ```bash
+   cd AdrenalinAntivirus
+   ```
 
-# License:
+3. **Install the required dependencies:**
+
+   Make sure you have Python installed. Then, install the dependencies listed in the `requirements.txt` file:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up the Malware-Basar API:**
+
+   Place the necessary `.txt` file in the same directory as the main `.py` file, as mentioned in the repository.
+
+5. **Run the antivirus:**
+
+   ```bash
+   python main.py
+   ```
+
+## Upcoming Updates
+
+- Botloader backup
+- Web protection
+
+## License
 
 GNU GENERAL PUBLIC LICENSE v3.0
