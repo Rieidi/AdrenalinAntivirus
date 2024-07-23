@@ -14,7 +14,7 @@ AdrenalinAntivirus is an antivirus developed entirely in Python. It features a d
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/YourUsername/AdrenalinAntivirus.git
+   git clone https://github.com/Rieidi/AdrenalinAntivirus.git
    ```
 
 2. **Navigate to the project directory:**
