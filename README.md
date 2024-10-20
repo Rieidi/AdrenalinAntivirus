@@ -1,13 +1,4 @@
-
-              _                      _ _                      _   _       _                
-     /\      | |                    | (_)         /\         | | (_)     (_)               
-    /  \   __| |_ __ ___ _ __   __ _| |_ _ __    /  \   _ __ | |_ ___   ___ _ __ _   _ ___ 
-   / /\ \ / _` | '__/ _ \ '_ \ / _` | | | '_ \  / /\ \ | '_ \| __| \ \ / / | '__| | | / __|
-  / ____ \ (_| | | |  __/ | | | (_| | | | | | |/ ____ \| | | | |_| |\ V /| | |  | |_| \__ \
- /_/    \_\__,_|_|  \___|_| |_|\__,_|_|_|_| |_/_/    \_\_| |_|\__|_| \_/ |_|_|   \__,_|___/
-                                                                                           
-                                                                                           
-
+# AdrenalinAntivirus
 AdrenalinAntivirus is an antivirus developed entirely in Python. It features a daily hash update function using the Malware-Basar API.
 
 ## Features
