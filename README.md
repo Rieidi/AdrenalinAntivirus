@@ -1,6 +1,6 @@
 
-# AdrenalinAntivirus
-AdrenalinAntivirus is an antivirus developed entirely in Python. It features a daily hash update function using the Malware-Basar API.
+# PyAV
+PyAV is an antivirus developed entirely in Python. It features a daily hash update function using the Malware-Basar API.
 
 ## Features
 
@@ -14,13 +14,13 @@ AdrenalinAntivirus is an antivirus developed entirely in Python. It features a d
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Rieidi/AdrenalinAntivirus.git
+   git clone https://github.com/Rieidi/PyAV.git
    ```
 
 2. **Navigate to the project directory:**
 
    ```bash
-   cd AdrenalinAntivirus
+   cd PyAV
    ```
 
 3. **Install the required dependencies:**
@@ -38,7 +38,7 @@ AdrenalinAntivirus is an antivirus developed entirely in Python. It features a d
 5. **Run the antivirus:**
 
    ```bash
-   python main.py
+   python PyAV.py
    ```
 
 ## Upcoming Updates
