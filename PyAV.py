@@ -201,7 +201,7 @@ def suspender_encerrar_processos(nome_processo):
 class VirusScannerApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("AdrenalinAntivirus")
+        self.setWindowTitle("PyAV")
         self.setGeometry(100, 100, 600, 400)
 
         self.virus_hashes = set()
