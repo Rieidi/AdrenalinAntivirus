@@ -48,4 +48,4 @@ PyAV is an antivirus developed entirely in Python. It features a daily hash upda
 
 ## License
 
-GNU GENERAL PUBLIC LICENSE v3.0
+MIT LICENSE 
